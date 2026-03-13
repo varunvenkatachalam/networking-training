@@ -1,0 +1,154 @@
+# Networking Training Program
+
+## Module 3 & 4 Assessment
+
+# 1. Simulating a Small Network and Observing the MAC Address Table
+
+To understand how switches handle Ethernet communication, a small network was created using two Linux machines connected to a switch. This was simulated using Cisco Packet Tracer.
+
+After connecting both machines to the switch, IP addresses were configured manually on each system. Once the configuration was completed, the `ping` command was used to send packets from one machine to another.
+
+Example command:
+
+```
+ping 192.168.1.2
+```
+
+When the ping command was executed, the switch started learning the MAC addresses of the devices connected to its ports. A switch maintains something called a **MAC address table**, which maps MAC addresses to the ports where the devices are connected.
+
+During the first communication, if the switch does not know the destination MAC address, it sends the frame to all ports except the source port. This process is called **frame flooding**. Once the switch receives a response, it learns the correct MAC address and stores it in the MAC table. Future packets are then forwarded directly to the correct port, improving network efficiency.
+
+
+# 2. Capturing and Analyzing Ethernet Frames Using Wireshark
+
+Wireshark was used to capture network packets and analyze Ethernet frames.
+
+First, Wireshark was installed on the Linux system using the following command:
+
+```
+sudo apt install wireshark
+```
+
+After launching Wireshark, the active network interface was selected for capturing packets. To generate traffic, the `ping` command was used between two devices.
+
+Wireshark captured the packets and displayed the detailed structure of Ethernet frames.
+
+An Ethernet frame mainly consists of the following fields:
+
+• **Destination MAC Address** – The MAC address of the receiving device.
+• **Source MAC Address** – The MAC address of the sending device.
+• **Ethertype** – Indicates the protocol used in the payload (for example IPv4 or ARP).
+• **Payload** – The actual data being transmitted across the network.
+• **Frame Check Sequence (FCS)** – Used to detect transmission errors.
+
+By analyzing packets in Wireshark, it was possible to see how devices communicate using MAC addresses and how higher layer protocols such as IP are carried inside Ethernet frames.
+
+
+# 3. Configuring Static IP Addresses and Modifying MAC Addresses
+
+In Linux, network interfaces can be configured manually using commands such as `ifconfig`.
+
+To configure a static IP address:
+
+```
+sudo ifconfig eth0 192.168.1.10 netmask 255.255.255.0 up
+```
+
+To verify the configuration:
+
+```
+ifconfig
+```
+
+Linux also allows modification of the MAC address of a network interface. This can be useful for testing network behavior or privacy purposes.
+
+Example commands:
+
+```
+sudo ifconfig eth0 down
+sudo ifconfig eth0 hw ether 00:11:22:33:44:55
+sudo ifconfig eth0 up
+```
+
+After configuring the IP address and MAC address, connectivity between devices was tested using the `ping` command. Successful replies indicate that the devices are able to communicate correctly within the network.
+
+
+# 4. Troubleshooting Ethernet Communication using ping and traceroute
+
+A simple LAN setup was created with two Linux machines connected through a switch. After assigning IP addresses to both systems, the `ping` command was used to check connectivity.
+
+```
+ping 192.168.1.2
+```
+
+If the ping command fails, the first step is to verify whether the IP addresses are configured correctly using:
+
+```
+ifconfig
+```
+
+Both machines should be in the same subnet to communicate directly.
+
+Another useful command for troubleshooting is `traceroute`.
+
+```
+traceroute 192.168.1.2
+```
+
+Traceroute shows the path taken by packets through the network. If packets are being dropped, traceroute helps identify the point where communication fails. This is useful when diagnosing routing issues or network misconfigurations.
+
+
+# 5. Linux Kernel Handling of Ethernet Devices
+
+The Linux kernel has a built-in networking subsystem that manages communication between applications and network hardware. Ethernet devices are controlled using **network device drivers**, which act as an interface between the operating system and the physical hardware.
+
+Each network interface in Linux is represented by a device name such as `eth0`, `ens33`, or `enp0s3`. These interfaces are managed by the kernel networking stack, which handles packet transmission, reception, routing, and buffering.
+
+When a packet is sent from an application, it passes through multiple layers in the kernel networking stack before reaching the network device driver. The driver then sends the packet through the Ethernet hardware onto the network. Similarly, incoming packets are processed by the kernel before being delivered to applications.
+
+
+
+# 6. Configuring a LAN Interface using the ip Command
+
+Modern Linux systems use the `ip` command instead of `ifconfig` for managing network interfaces.
+
+To assign an IP address to an interface:
+
+```
+sudo ip addr add 192.168.1.10/24 dev eth0
+```
+
+To enable the network interface:
+
+```
+sudo ip link set eth0 up
+```
+
+To display network interface details:
+
+```
+ip addr show
+```
+
+The `ip` command provides detailed control over network configuration, including IP addressing, routing, and interface management. It is considered the modern replacement for older networking tools.
+
+
+# 7. Viewing the MAC Address Table Using Linux Bridge Commands
+
+In Linux systems that act as software switches, the **bridge subsystem** is used to forward Ethernet frames between interfaces.
+
+The MAC address table can be viewed using the following command:
+
+```
+bridge fdb show
+```
+
+This command displays the **forwarding database (FDB)**, which contains learned MAC addresses and the corresponding interfaces.
+
+To view network interfaces:
+
+```
+ip link show
+```
+
+The Linux bridge works similarly to a hardware switch. When a frame arrives at an interface, the system learns the source MAC address and records it in the forwarding table. Future frames destined for that MAC address are forwarded only to the correct interface instead of being broadcast to all ports.
