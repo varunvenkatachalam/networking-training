@@ -1,0 +1,45 @@
+# Remote System Access
+
+# Remote Desktop Tools
+
+Common remote access tools include:
+
+1. VNC Viewer
+2. AnyDesk
+3. TeamViewer
+4. Remote Desktop Protocol (RDP)
+
+# VNC Viewer
+
+VNC allows graphical remote desktop access.
+
+Steps:
+
+1. Install VNC server on remote machine
+2. Install VNC viewer on client
+3. Connect using IP address
+
+# AnyDesk
+
+AnyDesk provides quick remote access.
+
+Steps:
+
+1. Install AnyDesk
+2. Share AnyDesk ID
+3. Connect to the remote system
+
+# TeamViewer
+
+TeamViewer works similarly to AnyDesk and provides secure remote desktop access.
+
+# RDP
+
+In Windows systems, RDP is used.
+
+Command:
+
+mstsc
+
+Enter the remote IP address to connect.
+

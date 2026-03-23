@@ -1,0 +1,32 @@
+# Duplicate IP Address Problem in a Network
+
+
+# What is a Duplicate IP Address?
+
+A duplicate IP occurs when two devices on the same network are configured with the same IP address.
+
+Example:
+
+Device 1 → 192.168.1.10  
+Device 2 → 192.168.1.10
+
+# Problems Caused by Duplicate IP
+
+1. Network connectivity issues
+2. Packet loss
+3. ARP table confusion
+4. Devices becoming unreachable
+
+# Detecting Duplicate IP
+
+ping 192.168.1.10
+
+arp -a
+
+If the MAC address keeps changing, there might be an IP conflict.
+
+# Solution
+
+- Use DHCP to automatically assign IP addresses
+- Ensure static IP addresses are unique
+

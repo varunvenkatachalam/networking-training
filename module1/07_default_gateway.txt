@@ -1,0 +1,13 @@
+# Default Gateway in Networking
+
+# What is a Default Gateway?
+
+A default gateway is a router that connects a local network to other networks or the internet.
+
+Example:
+
+192.168.1.1
+
+
+
+
